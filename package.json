@@ -1,0 +1,28 @@
+{
+  "name": "mangma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watchSass": "sass --watch themes/dark.scss:styles/dark.css themes/light.scss:styles/light.css --style=compressed --load-path=node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H0rn0chse/MangMa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/H0rn0chse/MangMa/issues"
+  },
+  "homepage": "https://github.com/H0rn0chse/MangMa#readme",
+  "devDependencies": {
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "connect": "^3.7.0",
+    "sass": "^1.34.0",
+    "serve-static": "^1.14.1"
+  }
+}
