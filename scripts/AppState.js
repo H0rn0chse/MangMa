@@ -21,6 +21,14 @@ export const appState = new Vuex.Store({
 
             const newEntry = {
                 id: lastEntry.id + 1 || 1,
+                title: "",
+                number: 0,
+                read: false,
+                isBook: true,
+                isEBook: true,
+                isVideo: false,
+                lend: false,
+                comment: "",
             }
             state.entries.push(newEntry);
             setDirtyState(true);
