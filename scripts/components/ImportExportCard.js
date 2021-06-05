@@ -1,7 +1,7 @@
 import { appState } from "../AppState.js";
 import { setDirtyState } from "../DirtyState.js";
 import { exportEntries } from "../exportData.js";
-import { setItems } from "../ItemManager.js";
+import { setGroups, setItems } from "../ItemManager.js";
 
 const { Vue, Vuex } = globalThis;
 const { mapActions, mapState } = Vuex;
@@ -20,10 +20,12 @@ function _handleFileSelect (event) {
 		const reader = new FileReader();
 		reader.onload = function () {
 			try {
-				const importedItems = JSON.parse(reader.result);
-				setItems(importedItems);
+				const importedData = JSON.parse(reader.result);
+				setItems(importedData.items || []);
+                setGroups(importedData.groups || {});
                 appState.commit("updateAll");
-                appState.commit('saveItems');
+                appState.commit("saveItems");
+                appState.commit("saveGroups");
                 setDirtyState(false);
 			}
 			catch (error){

@@ -59,15 +59,29 @@ export const appState = new Vuex.Store({
             setIgnoreDirtyState(param.value);
         },
         selectBook (state, param) {
-            if (!state.books[param.id]) {
+            // empty book
+            if (!param.id && !state.books[param.id]) {
+                const book = {
+                    title: "-",
+                    comment: null
+                };
+                state.currentBook = book
+            // new book
+            } else if (!state.books[param.id]) {
                 state.books[param.id] = {
                     title: param.id,
                     comment: null
                 };
+                state.currentBook = state.books[param.id];
+            // existing book
+            } else {
+                state.currentBook = state.books[param.id];
             }
-            state.currentBook = state.books[param.id];
         },
         updateBook (state, param) {
+            if (!param.id || !state.books[param.id]) {
+                return;
+            }
             state.books[param.id].comment = param.comment;
         },
         saveBooks (state) {

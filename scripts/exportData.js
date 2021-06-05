@@ -1,8 +1,12 @@
 import { setDirtyState } from "./DirtyState.js";
-import { getItems } from "./ItemManager.js";
+import { getGroups, getItems } from "./ItemManager.js";
 
 export function exportEntries () {
-	const text = JSON.stringify(getItems());
+    const data = {
+        items: getItems(),
+        groups: getGroups()
+    };
+	const text = JSON.stringify(data);
     download(text, 'MangMa.json', 'text/plain');
     setDirtyState(false)
 }
