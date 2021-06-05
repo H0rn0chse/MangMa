@@ -1,4 +1,5 @@
 import { appState } from "./AppState.js";
+import { CommentCard } from "./components/CommentCard.js";
 import { ConfigCard } from "./components/ConfigCard.js";
 import { ImportExportCard } from "./components/ImportExportCard.js";
 import { SearchBar } from "./components/SearchBar.js";
@@ -14,6 +15,7 @@ const componentList = [
     SearchBar,
     ImportExportCard,
     ConfigCard,
+    CommentCard,
 ];
 
 window.addEventListener("beforeunload", (event) => {
@@ -52,6 +54,7 @@ const app = new Vue({
                     cols="4"
                     class="d-flex flex-column justify-content-end"
                 >
+                    <comment-card/>
                     <config-card/>
                     <import-export-card/>
                 </b-col>

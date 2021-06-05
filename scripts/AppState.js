@@ -1,7 +1,7 @@
 import {  } from "./Constants.js";
-import { getItems, loadFromLocalStorage, saveItems, setItems } from "./ItemManager.js";
+import { getGroups, getItems, loadFromLocalStorage, saveGroups, saveItems, setGroups, setItems } from "./ItemManager.js";
 import { indexByProperty } from "./utils.js";
-import { getIgnoreDirtyState, setDirtyState, setIgnoreDirtyState } from "./DirtyState.js";
+import { getIgnoreDirtyState, setIgnoreDirtyState } from "./DirtyState.js";
 
 const { Vuex, _ } = globalThis;
 
@@ -10,11 +10,17 @@ loadFromLocalStorage();
 export const appState = new Vuex.Store({
     state: {
         entries: getItems(),
+        books: getGroups(),
         ignoreDirtyState: getIgnoreDirtyState(),
+        currentBook: {
+            title: "-",
+            comment: null
+        }
     },
     mutations: {
         updateAll (state) {
             state.entries = getItems();
+            state.books = getGroups();
         },
         addRow (state) {
             const lastEntry = _.last(state.entries) || {};
@@ -31,20 +37,17 @@ export const appState = new Vuex.Store({
                 comment: "",
             }
             state.entries.push(newEntry);
-            setDirtyState(true);
         },
         deleteRow (state, param) {
             const index = indexByProperty(state.entries, "id", param.id);
             if (index > -1) {
                 state.entries.splice(index, 1);
-                setDirtyState(true);
             }
         },
         updateRow (state, param) {
             const index = indexByProperty(state.entries, "id", param.id);
             if (index > -1) {
                 state.entries[index][param.property] = param.value;
-                setDirtyState(true);
             }
         },
         saveItems (state) {
@@ -54,33 +57,56 @@ export const appState = new Vuex.Store({
         setIgnoreDirtyState (state, param) {
             state.ignoreDirtyState = param.value;
             setIgnoreDirtyState(param.value);
+        },
+        selectBook (state, param) {
+            if (!state.books[param.id]) {
+                state.books[param.id] = {
+                    title: param.id,
+                    comment: null
+                };
+            }
+            state.currentBook = state.books[param.id];
+        },
+        updateBook (state, param) {
+            state.books[param.id].comment = param.comment;
+        },
+        saveBooks (state) {
+            setGroups(_.cloneDeep(state.books));
+            saveGroups();
         }
     },
     actions: {
         updateAll (context) {
-            context.commit('updateAll');
+            context.commit("updateAll");
         },
         addRow (context) {
-            context.commit('addRow');
-            context.commit('saveItems');
-            context.commit('updateAll');
+            context.commit("addRow");
+            context.commit("saveItems");
+            context.commit("updateAll");
         },
         deleteRow (context, id) {
-            context.commit('deleteRow', { id });
-            context.commit('saveItems');
-            context.commit('updateAll');
+            context.commit("deleteRow", { id });
+            context.commit("saveItems");
+            context.commit("updateAll");
         },
         updateRow (context, param) {
-            context.commit('updateRow', param);
-            context.commit('saveItems');
-            context.commit('updateAll');
+            context.commit("updateRow", param);
+            context.commit("saveItems");
+            context.commit("updateAll");
+        },
+        selectBook (context, id) {
+            context.commit("selectBook", { id });
+        },
+        updateBook (context, param) {
+            context.commit("updateBook", param);
+            context.commit("saveBooks");
         },
         setIgnoreDirtyState (context, value) {
-            context.commit('setIgnoreDirtyState', { value });
+            context.commit("setIgnoreDirtyState", { value });
         },
     },
 });
 globalThis.AppState = appState;
 
 // calculate once
-appState.commit('updateAll');
+appState.commit("updateAll");

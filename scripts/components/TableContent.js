@@ -23,6 +23,7 @@ export const TableContent = Vue.component("table-content", {
                         type="text"
                         v-model="row.item.title"
                         v-on:change="updateRow({id: row.item.id, property: 'title', value: row.item.title})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(number)="row">
@@ -30,36 +31,42 @@ export const TableContent = Vue.component("table-content", {
                         type="number"
                         v-model="row.item.number"
                         v-on:change="updateRow({id: row.item.id, property: 'number', value: row.item.number})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(read)="row">
                     <b-form-checkbox
                         v-model="row.item.read"
                         v-on:change="updateRow({id: row.item.id, property: 'read', value: row.item.read})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(isBook)="row">
                     <b-form-checkbox
                         v-model="row.item.isBook"
                         v-on:change="updateRow({id: row.item.id, property: 'isBook', value: row.item.isBook})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(isEbook)="row">
                     <b-form-checkbox
                         v-model="row.item.isEbook"
                         v-on:change="updateRow({id: row.item.id, property: 'isEbook', value: row.item.isEbook})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(isVideo)="row">
                     <b-form-checkbox
                         v-model="row.item.isVideo"
                         v-on:change="updateRow({id: row.item.id, property: 'isVideo', value: row.item.isVideo})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(lend)="row">
                     <b-form-checkbox
                         v-model="row.item.lend"
                         v-on:change="updateRow({id: row.item.id, property: 'lend', value: row.item.lend})"
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(comment)="row">
@@ -67,12 +74,14 @@ export const TableContent = Vue.component("table-content", {
                         type="text"
                         v-model="row.item.comment"
                         v-on:change="updateRow({id: row.item.id, property: 'comment', value: row.item.comment})""
+                        @focus="selectBook(row.item.title)"
                     />
                 </template>
                 <template v-slot:cell(actions)="row">
                     <b-button
                         size="sm"
                         v-on:click="deleteRow(row.item.id)"
+                        @focus="selectBook(row.item.title)"
                         variant="danger"
                     >
                         <b-icon icon="trash" />
@@ -134,7 +143,8 @@ export const TableContent = Vue.component("table-content", {
         ...mapActions([
             "updateRow",
             "deleteRow",
-            "addRow"
+            "addRow",
+            "selectBook"
         ]),
         async focusLastRow (shouldFocusLastPage, shouldFocusLastRow) {
             await this.$nextTick(function () {
