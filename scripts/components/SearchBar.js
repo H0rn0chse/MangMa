@@ -10,8 +10,9 @@ export const SearchBar = Vue.component("search-bar", {
             />
             <b-button
                 v-on:click="clearInput"
+                class="ml-3"
             >
-                Clear&nbsp;Input
+                <b-icon icon="x-circle" />
             </b-button>
         <div>
     `,

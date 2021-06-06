@@ -12,7 +12,7 @@ export const CommentCard = Vue.component("comment-card", {
         >
             <b-textarea
                 placeholder="some Comment..."
-                rows="3"
+                rows="6"
                 max-rows="6"
                 v-model="currentBook.comment"
                 v-on:change="updateBook({id: currentBook.title, comment: currentBook.comment})"

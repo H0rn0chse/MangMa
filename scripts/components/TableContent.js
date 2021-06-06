@@ -18,6 +18,9 @@ export const TableContent = Vue.component("table-content", {
                 :per-page="perPage"
                 :current-page="currentPage"
                 :filter="searchString"
+                :sort-by.sync="_sortBy"
+                :sort-desc.sync="_sortDir"
+                :no-local-sorting="true"
             >
                 <template v-slot:cell(title)="row">
                     <b-form-input
@@ -108,8 +111,26 @@ export const TableContent = Vue.component("table-content", {
     computed: {
         ...mapState([
             "entries",
-            "searchString"
+            "searchString",
+            "sortBy",
+            "sortDir",
         ]),
+        _sortBy: {
+            get () {
+                return this.sortBy;
+            },
+            set (by) {
+                this.updateSort({ by: by, dir: this.sortDir })
+            }
+        },
+        _sortDir: {
+            get () {
+                return this.sortDir;
+            },
+            set (dir) {
+                this.updateSort({ by: this.sortBy, dir: dir })
+            }
+        },
         rows () {
             return this.entries.length
         }
@@ -119,8 +140,8 @@ export const TableContent = Vue.component("table-content", {
             perPage: 50,
             currentPage: 1,
             fields: [
-                { label: "Name", key: "title" },
-                { label: "Band", key: "number" },
+                { label: "Name", key: "title", sortable: true },
+                { label: "Band", key: "number", sortable: true },
                 { label: "Gelesen", key: "read" },
                 { label: "Buch", key: "isBook" },
                 { label: "EBook", key: "isEbook" },
@@ -146,7 +167,8 @@ export const TableContent = Vue.component("table-content", {
             "updateRow",
             "deleteRow",
             "addRow",
-            "selectBook"
+            "selectBook",
+            "updateSort",
         ]),
         async focusLastRow (shouldFocusLastPage, shouldFocusLastRow) {
             await this.$nextTick(function () {

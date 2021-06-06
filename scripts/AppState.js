@@ -1,6 +1,6 @@
-import {  } from "./Constants.js";
+import { SORT_DIR } from "./Constants.js";
 import { getGroups, getItems, loadFromLocalStorage, saveGroups, saveItems, setGroups, setItems } from "./ItemManager.js";
-import { indexByProperty } from "./utils.js";
+import { indexByProperty, superSort } from "./utils.js";
 import { getIgnoreDirtyState, setIgnoreDirtyState } from "./DirtyState.js";
 
 const { Vuex, _ } = globalThis;
@@ -16,12 +16,16 @@ export const appState = new Vuex.Store({
             title: "-",
             comment: null
         },
-        searchString : ""
+        searchString : "",
+        sortBy: "",
+        sortDir: SORT_DIR.asc,
     },
     mutations: {
         updateAll (state) {
             state.entries = getItems();
             state.books = getGroups();
+
+            superSort(state.entries, state.sortBy, state.sortDir);
         },
         addRow (state) {
             const lastEntry = _.last(state.entries) || {};
@@ -91,6 +95,10 @@ export const appState = new Vuex.Store({
         },
         updateSearchString (state, param) {
             state.searchString = param.string;
+        },
+        updateSort (state, param) {
+            state.sortBy = param.by;
+            state.sortDir = param.dir;
         }
     },
     actions: {
@@ -121,6 +129,10 @@ export const appState = new Vuex.Store({
         },
         updateSearchString (context, string) {
             context.commit("updateSearchString", { string });
+        },
+        updateSort (context, param) {
+            context.commit("updateSort", param);
+            context.commit("updateAll");
         },
         setIgnoreDirtyState (context, value) {
             context.commit("setIgnoreDirtyState", { value });
