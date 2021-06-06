@@ -17,6 +17,7 @@ export const TableContent = Vue.component("table-content", {
                 class="flex-grow-1"
                 :per-page="perPage"
                 :current-page="currentPage"
+                :filter="searchString"
             >
                 <template v-slot:cell(title)="row">
                     <b-form-input
@@ -107,6 +108,7 @@ export const TableContent = Vue.component("table-content", {
     computed: {
         ...mapState([
             "entries",
+            "searchString"
         ]),
         rows () {
             return this.entries.length

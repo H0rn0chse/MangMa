@@ -15,7 +15,8 @@ export const appState = new Vuex.Store({
         currentBook: {
             title: "-",
             comment: null
-        }
+        },
+        searchString : ""
     },
     mutations: {
         updateAll (state) {
@@ -87,6 +88,9 @@ export const appState = new Vuex.Store({
         saveBooks (state) {
             setGroups(_.cloneDeep(state.books));
             saveGroups();
+        },
+        updateSearchString (state, param) {
+            state.searchString = param.string;
         }
     },
     actions: {
@@ -114,6 +118,9 @@ export const appState = new Vuex.Store({
         updateBook (context, param) {
             context.commit("updateBook", param);
             context.commit("saveBooks");
+        },
+        updateSearchString (context, string) {
+            context.commit("updateSearchString", { string });
         },
         setIgnoreDirtyState (context, value) {
             context.commit("setIgnoreDirtyState", { value });
