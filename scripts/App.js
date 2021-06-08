@@ -5,6 +5,7 @@ import { ConfigCard } from "./components/ConfigCard.js";
 import { ImportExportCard } from "./components/ImportExportCard.js";
 import { SearchBar } from "./components/SearchBar.js";
 import { TableContent } from "./components/TableContent.js";
+import { UpdateBookButton } from "./components/UpdateBookButton.js";
 import { getDirtyState } from "./DirtyState.js";
 
 const { Vue, Vuex } = globalThis;
@@ -18,6 +19,7 @@ const componentList = [
     ConfigCard,
     CommentCard,
     AddBookButton,
+    UpdateBookButton,
 ];
 
 window.addEventListener("beforeunload", (event) => {
