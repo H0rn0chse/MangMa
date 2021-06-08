@@ -101,6 +101,10 @@ export const TableContent = Vue.component("table-content", {
                     class="m-0 mr-3"
                 />
 
+                <add-book-button
+                    class="mr-3"
+                />
+
                 <b-button v-on:click="addRow">
                     Neuer Eintrag
                 </b-button>
@@ -137,7 +141,7 @@ export const TableContent = Vue.component("table-content", {
     },
     data () {
         return {
-            perPage: 50,
+            perPage: 20,
             currentPage: 1,
             fields: [
                 { label: "Name", key: "title", sortable: true },

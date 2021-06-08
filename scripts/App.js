@@ -1,4 +1,5 @@
 import { appState } from "./AppState.js";
+import { AddBookButton } from "./components/AddBookButton.js";
 import { CommentCard } from "./components/CommentCard.js";
 import { ConfigCard } from "./components/ConfigCard.js";
 import { ImportExportCard } from "./components/ImportExportCard.js";
@@ -16,6 +17,7 @@ const componentList = [
     ImportExportCard,
     ConfigCard,
     CommentCard,
+    AddBookButton,
 ];
 
 window.addEventListener("beforeunload", (event) => {

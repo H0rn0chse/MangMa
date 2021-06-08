@@ -27,7 +27,7 @@ export const appState = new Vuex.Store({
 
             superSort(state.entries, state.sortBy || "id", state.sortDir);
         },
-        addRow (state) {
+        addRow (state, param = {}) {
             const lastEntry = _.last(state.entries) || {};
 
             const newEntry = {
@@ -41,6 +41,11 @@ export const appState = new Vuex.Store({
                 lend: false,
                 comment: "",
             }
+            Object.keys(newEntry).forEach((prop) => {
+                if (param.hasOwnProperty(prop) && prop !== "id") {
+                    newEntry[prop] = param[prop];
+                }
+            })
             state.entries.push(newEntry);
         },
         deleteRow (state, param) {
@@ -123,8 +128,8 @@ export const appState = new Vuex.Store({
         updateAll (context) {
             context.commit("updateAll");
         },
-        addRow (context) {
-            context.commit("addRow");
+        addRow (context, param) {
+            context.commit("addRow", param);
             context.commit("saveItems");
             context.commit("updateAll");
         },
@@ -163,6 +168,14 @@ export const appState = new Vuex.Store({
             context.commit("saveItems");
             context.commit("updateAll");
         },
+        addMultipleRows (context, param) {
+            for (let i = param.from; i <= param.to; i++) {
+                param.number = i;
+                context.commit("addRow", param);
+            }
+            context.commit("saveItems");
+            context.commit("updateAll");
+        }
     },
 });
 globalThis.AppState = appState;
