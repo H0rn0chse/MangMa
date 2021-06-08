@@ -6,7 +6,7 @@ export const SearchBar = Vue.component("search-bar", {
         <div class="d-flex">
             <b-form-input
                 v-model="_searchString"
-                debounce=500
+                debounce=200
             />
             <b-button
                 v-on:click="clearInput"

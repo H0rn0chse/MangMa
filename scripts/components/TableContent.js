@@ -4,13 +4,13 @@ const { mapActions, mapState } = Vuex;
 export const TableContent = Vue.component("table-content", {
     template: `
         <div
-            class="game-list h-100 d-flex flex-column justify-content-end"
+            class="game-list h-100 d-flex flex-column justify-content-start mt-5"
         >
             <b-table
                 striped
                 hover
                 small
-                sticky-header="calc(100vh - 500px)"
+                sticky-header="calc(100vh - 200px)"
                 responsive
                 :items="entries"
                 :fields="fields"
@@ -147,7 +147,7 @@ export const TableContent = Vue.component("table-content", {
                 { label: "EBook", key: "isEbook" },
                 { label: "Video", key: "isVideo" },
                 { label: "Verliehen", key: "lend" },
-                { label: "Kommentar", key: "comment" },
+//                { label: "Kommentar", key: "comment" },
                 { label: "", key: "actions" },
             ],
         };
@@ -182,7 +182,7 @@ export const TableContent = Vue.component("table-content", {
                 if (shouldFocusLastRow) {
                     const rows = this.$el.children[0].children[0].children[1].children;
                     const item = _.last(rows);
-                    item.scrollIntoView();
+                    item?.scrollIntoView();
                 }
             });
         },
