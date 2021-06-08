@@ -4,8 +4,8 @@ var items = [];
 var groups = {};
 
 export function loadFromLocalStorage () {
-    items = JSON.parse(localStorage.getItem("items")) || [];
-    groups = JSON.parse(localStorage.getItem("groups")) || {};
+    items = JSON.parse(localStorage.getItem("items_mangma")) || [];
+    groups = JSON.parse(localStorage.getItem("groups_mangma")) || {};
 }
 
 export function getItems () {
@@ -18,7 +18,7 @@ export function setItems (newItems){
 
 export function saveItems () {
     setDirtyState(true);
-	localStorage.setItem("items", JSON.stringify(items));
+	localStorage.setItem("items_mangma", JSON.stringify(items));
 }
 
 export function getGroups () {
@@ -31,5 +31,5 @@ export function setGroups (newGroups){
 
 export function saveGroups () {
     setDirtyState(true);
-	localStorage.setItem("groups", JSON.stringify(groups));
+	localStorage.setItem("groups_mangma", JSON.stringify(groups));
 }
