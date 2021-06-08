@@ -25,7 +25,7 @@ export const appState = new Vuex.Store({
             state.entries = getItems();
             state.books = getGroups();
 
-            superSort(state.entries, state.sortBy, state.sortDir);
+            superSort(state.entries, state.sortBy || "id", state.sortDir);
         },
         addRow (state) {
             const lastEntry = _.last(state.entries) || {};
@@ -99,6 +99,24 @@ export const appState = new Vuex.Store({
         updateSort (state, param) {
             state.sortBy = param.by;
             state.sortDir = param.dir;
+        },
+        updateRowByBook (state, param) {
+            const properties = ["title", "read", "isBook", "isEbook", "isVideo", "lend"];
+
+            const index = state.entries.findIndex((item) => {
+                return item.title === param.bookTitle && item.number == param.number;
+            });
+
+            if (index < 0) {
+                return;
+            }
+
+            properties.forEach((prop) => {
+                if (param.hasOwnProperty(prop)) {
+                    console.log(prop)
+                    state.entries[index][prop] = param[prop];
+                }
+            })
         }
     },
     actions: {
@@ -136,6 +154,14 @@ export const appState = new Vuex.Store({
         },
         setIgnoreDirtyState (context, value) {
             context.commit("setIgnoreDirtyState", { value });
+        },
+        updateMultipleRows (context, param) {
+            for (let i = param.from; i <= param.to; i++) {
+                param.number = i;
+                context.commit("updateRowByBook", param);
+            }
+            context.commit("saveItems");
+            context.commit("updateAll");
         },
     },
 });
