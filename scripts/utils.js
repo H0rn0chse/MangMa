@@ -6,14 +6,8 @@ export function indexByProperty (arr, property, value) {
 
 export function superSort (arr, by, dir) {
 	arr.sort((a, b) => {
-		let valA, valB;
-		try {
-			valA = parseInt(a[by]);
-			valB = parseInt(b[by]);
-		} catch (err) {
-			valA = a[by];
-			valB = b[by];
-		}
+		let valA = a[by];
+		let valB = b[by];
 
 		let sortResult = 0;
 		if (typeof valA === "string") {
