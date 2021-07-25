@@ -1,8 +1,5 @@
-import { appState } from "../AppState.js";
-
-const { Vue, Vuex, darkModeToggle } = globalThis;
+const { Vue, Vuex } = globalThis;
 const { mapActions, mapState } = Vuex;
-const { Button, ThemeHandler } = darkModeToggle;
 
 export const ConfigCard = Vue.component("config-card", {
     template: `
@@ -11,8 +8,9 @@ export const ConfigCard = Vue.component("config-card", {
             title="Configuration"
             class="mb-5"
         >
-            <div class="m-1" ref="toggleButton">
-            </div>
+            <dark-mode-toggle
+                height="38"
+            />
         </b-card>
     `,
     props: [ ],
@@ -20,15 +18,6 @@ export const ConfigCard = Vue.component("config-card", {
     data () {
         return {
         };
-    },
-    mounted () {
-        appState.commit("setTheme", { theme: ThemeHandler.getTheme() });
-
-        const button = new Button(this.$refs.toggleButton, { height: 38 });
-
-        ThemeHandler.on("themeLoaded", (evt) => {
-            appState.commit("setTheme", { theme: evt.theme });
-        });
     },
     methods: {}
 });
