@@ -6,7 +6,7 @@ A small tool to track your mangas and other books. This project is hosted on Git
 <img src="./assets/screenshot.png" title="Screenshot" />
 
 ## Libraries
- * Github Corners [github.com/remarkablemark/github-corners](https://github.com/remarkablemark/github-corners)
+ * Github Corners [github.com/YunYouJun/wc-github-corners](https://github.com/YunYouJun/wc-github-corners)
  * Vue.js [github.com/vuejs/vue](https://github.com/vuejs/vue)
  * Vuex [github.com/vuejs/vuex](https://github.com/vuejs/vuex)
  * BootstrapVue [github.com/bootstrap-vue/bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue)
