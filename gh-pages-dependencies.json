@@ -1,0 +1,17 @@
+[[
+    "/client", "/"
+], [
+    "/node_modules/wc-github-corners/dist", "/libs/wc-github-corners"
+], [
+    "/node_modules/lodash", "/libs/lodash"
+], [
+    "/node_modules/vue/dist", "/libs/vue"
+], [
+    "/node_modules/bootstrap-vue/dist", "/libs/bootstrap-vue"
+], [
+    "/node_modules/vuex/dist", "/libs/vuex"
+], [
+    "/node_modules/lottie-web/build", "/libs/lottie-web"
+], [
+    "/node_modules/@h0rn0chse/dark-mode-toggle/dist", "/libs/dark-mode-toggle"
+]]

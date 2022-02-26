@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "watchSass": "sass --watch themes/dark.scss:styles/dark.css themes/light.scss:styles/light.css --style=compressed --load-path=node_modules"
+    "watchThemes": "sass --watch src/themes/dark.scss:client/themes/dark.css src/themes/light.scss:client/themes/light.css --style=compressed --load-path=node_modules",
+    "buildThemes": "sass src/themes/dark.scss:client/themes/dark.css src/themes/light.scss:client/themes/light.css --style=compressed --load-path=node_modules"
   },
   "repository": {
     "type": "git",
@@ -19,10 +21,18 @@
   },
   "homepage": "https://github.com/H0rn0chse/MangMa#readme",
   "devDependencies": {
-    "bootstrap": "^4.6.0",
+    "@h0rn0chse/socket-server": "^1.1.4",
+    "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.21.2",
-    "connect": "^3.7.0",
-    "sass": "^1.34.0",
-    "serve-static": "^1.14.1"
+    "jquery": "^3.6.0",
+    "sass": "^1.49.9",
+    "vue": "^2.6.14"
+  },
+  "dependencies": {
+    "@h0rn0chse/dark-mode-toggle": "^2.1.1",
+    "lodash": "^4.17.21",
+    "lottie-web": "^5.8.1",
+    "vuex": "^3.6.2",
+    "wc-github-corners": "^0.1.5"
   }
 }
